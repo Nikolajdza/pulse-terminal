@@ -1,0 +1,140 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  --color-background: #07080a;
+  --color-foreground: #e8eaed;
+  --color-card: #0c0e12;
+  --color-card-foreground: #e8eaed;
+  --color-muted: #12151b;
+  --color-muted-foreground: #7d8590;
+  --color-border: #1a1f28;
+  --color-accent: #151a22;
+  --color-accent-foreground: #e8eaed;
+  --color-primary: #3dff8a;
+  --color-primary-foreground: #04110a;
+  --color-destructive: #ff4d6a;
+  --color-ring: #3dff8a;
+  --color-up: #3dff8a;
+  --color-down: #ff4d6a;
+  --color-live: #3dff8a;
+  --color-cyan: #4cc9f0;
+  --color-panel: #0a0c10;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    @apply m-0 min-h-dvh bg-background font-sans text-foreground antialiased;
+    background-image:
+      linear-gradient(180deg, rgb(61 255 138 / 0.03), transparent 28%),
+      radial-gradient(ellipse 70% 40% at 80% 0%, rgb(76 201 240 / 0.05), transparent),
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgb(255 255 255 / 0.012) 2px,
+        rgb(255 255 255 / 0.012) 3px
+      );
+  }
+
+  #root {
+    @apply min-h-dvh;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-ring;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #2a3140;
+    border-radius: 999px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  [data-theme='oled'] {
+    --color-background: #000000;
+    --color-card: #000000;
+    --color-panel: #000000;
+    --color-muted: #070707;
+    --color-border: #1a1a1a;
+    --color-accent: #0b0b0b;
+  }
+
+  [data-theme='oled'] body {
+    background-image: none;
+  }
+}
+
+@layer utilities {
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .panel-grid {
+    background-image:
+      linear-gradient(rgb(255 255 255 / 0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 0.02) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  .flash-up {
+    animation: flash-up 450ms ease-out;
+  }
+
+  .flash-down {
+    animation: flash-down 450ms ease-out;
+  }
+}
+
+@keyframes flash-up {
+  from {
+    background-color: rgb(61 255 138 / 0.22);
+  }
+  to {
+    background-color: transparent;
+  }
+}
+
+@keyframes flash-down {
+  from {
+    background-color: rgb(255 77 106 / 0.22);
+  }
+  to {
+    background-color: transparent;
+  }
+}
+
+@keyframes tape-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.tape-track {
+  animation: tape-scroll 28s linear infinite;
+}
+
+.tape-track:hover {
+  animation-play-state: paused;
+}
